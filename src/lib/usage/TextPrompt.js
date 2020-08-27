@@ -297,7 +297,7 @@ class TextPrompt {
 			const { response } = this._currentUsage;
 			const error = typeof response === 'function' ? response(this.message, possible) : response;
 
-			if (this._required === 1) return this.handleError(error || err);
+			if (this._required === 1) return this.handleError(error || typeof err === 'object' ? err.message : err);
 			if (this._currentUsage.possibles.length === 1) {
 				return this.handleError(error || (this.args[this.params.length] === undefined ? this.message.language.get('COMMANDMESSAGE_MISSING_REQUIRED', possible.name) : err));
 			}
